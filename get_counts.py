@@ -5,7 +5,6 @@ Created on 2019-02-18
 @author Susan
 Get the number of unique values in each column of a dataset.
 """
-
 import random, sys, csv
 
 if __name__ == '__main__':
@@ -19,14 +18,18 @@ if __name__ == '__main__':
 
     unique_values = {}
     for col in range(len(header)):
-        unique_values[col] = set()
+        unique_values[col] = {}
 
     for line in csv_in:
         for index, item in enumerate(line):
-            unique_values[index].add(item)
+            if item in unique_values[index]:
+                unique_values[index][item] += 1
+            else:
+                unique_values[index][item] = 1
 
     for i, col in enumerate(header):
-        print(col, len(unique_values[i]))
+        if len(unique_values[i]) < 20:
+            print(col, unique_values[i])
 
 
     fin.close()
