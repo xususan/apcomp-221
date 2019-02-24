@@ -15,7 +15,12 @@ if __name__ == '__main__':
 
     fin = open(sys.argv[1], 'r')
     csv_in = csv.reader(fin)
+    row_count = sum(1 for row in csv_in)
+    fin.seek(0)
     headers = next(csv_in)
+
+    print(f" ---> Read {row_count} lines with {len(headers)} columns.")
+    sys.stdout.flush()
     
     keep_headers = read_int_config_file(sys.argv[3])
     
