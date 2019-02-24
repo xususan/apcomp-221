@@ -18,6 +18,7 @@ if __name__ == '__main__':
 
     columns = set(file_util.read_int_config_file(sys.argv[2]))
 
+    # For each column, keep a dictionary of the possible values and their counts
     unique_values = {}
     for col in range(len(header)):
         unique_values[col] = {}
