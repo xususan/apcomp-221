@@ -18,7 +18,7 @@ def read_int_config_file(file_name):
     ret_l = []
     for l in fin:
         try:
-            ret_l.append(int(l.split(',')[0]))
+            ret_l.append(l.split(',')[0].strip())
         except:
             continue
     fin.close()
