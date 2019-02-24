@@ -10,7 +10,7 @@ from file_util import read_int_config_file
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
-        print('Usage: python organize.py infile.csv outfile.csv configfile')
+        print('Usage: python quasi_reduce.py infile.csv outfile.csv configfile')
         sys.exit(1)
 
     fin = open(sys.argv[1], 'r')
