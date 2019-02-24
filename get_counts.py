@@ -23,16 +23,19 @@ if __name__ == '__main__':
     for col in range(len(header)):
         unique_values[col] = {}
 
+    # Iterate over the file, updating how many times each value has been seen
     for line in csv_in:
         for index, item in enumerate(line):
-            if index in columns:
-                if item in unique_values[index]:
-                    unique_values[index][item] += 1
-                else:
-                    unique_values[index][item] = 1
+            if item in unique_values[index]:
+                unique_values[index][item] += 1
+            else:
+                unique_values[index][item] = 1
 
+    # Print out the count of each value for each column for the columns 
+    # specified in the config file
     for i, col in enumerate(header):
-        print(col, unique_values[i])
+        if col in columns:
+            print(col, unique_values[i])
 
 
     fin.close()
