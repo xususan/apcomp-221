@@ -11,7 +11,9 @@
 `python3 k_suppress.py quasi.csv k5.csv 5`
 
 ## 4. k-anonymous synthetic
-
+`python3 k_synthetic.py quasi.csv k_synthetic_3.csv 3`
+`python3 k_synthetic.py quasi.csv k_synthetic_4.csv 4`
+`python3 k_synthetic.py quasi.csv k_synthetic_5.csv 5`
 
 ## 5. k-anonymous generalization, blurring, and suppression
 
