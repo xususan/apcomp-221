@@ -8,15 +8,16 @@ Reads a CSV and writes out a new CSV with only non-unique rows with at least k e
 import sys, csv
 import hashlib
 from collections import Counter
-from file_util import read_csv
+from file_util import columns_from_config_file, read_csv
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
-        print('Usage: python k_suppress.py infile.csv outfile.csv k')
+        print('Usage: python k_suppress.py infile.csv outfile.csv k configfile')
         sys.exit(1)
     
     headers, rows = read_csv(filename=sys.argv[1])
     k = int(sys.argv[3])
+    delete_columns, qi_columns = columns_from_config_file(sys.argv[4])
     
     # Write headers
     output_csv = []
