@@ -85,7 +85,8 @@ def create_synthetic_record(line, qi_columns, headers, rows):
     # Replace the quasi-identifiers in that line with the true quasi identifiers
     new_entry = []
     for i, item in enumerate(random_row):
-        if headers[i] in qi_columns:
+        # Don't replace course id either
+        if headers[i] in qi_columns or headers[i] == "course_id":
             new_entry.append(qi[quasi_index])
             quasi_index += 1
         else:
