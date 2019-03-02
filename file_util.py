@@ -4,6 +4,7 @@
 Created on 2019-02-18
 @author samuelclay
 """
+import pdb
 
 import sys, csv, json, random
 
@@ -78,7 +79,7 @@ def create_synthetic_record(line, qi_columns, headers, rows):
     qi = qi_for_line(line, qi_columns, headers)
 
     # Get a random row from the dataset
-    random_row = random.sample(rows, 1)
+    random_row = random.sample(rows, 1)[0]
     quasi_index = 0
 
     # Replace the quasi-identifiers in that line with the true quasi identifiers
