@@ -36,8 +36,9 @@ if __name__ == '__main__':
         for row in output_csv:
             writer.writerow(row)
 
+    remaining_column_count = len(headers) - len(delete_columns) - len(qi_columns)
     print(" ---> Wrote {} lines with {}+{}/{} columns to {}.".format(len(output_csv), 
                                                                      len(qi_columns), 
-                                                                     (len(headers)-len(delete_columns)-len(qi_columns)), 
+                                                                     remaining_column_count, 
                                                                      len(headers), 
                                                                      sys.argv[2]))
