@@ -8,21 +8,15 @@ Reads a CSV and writes out a new CSV with only non-unique rows with at least k e
 import sys, csv
 import hashlib
 from collections import Counter
+from file_util import read_csv
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
         print('Usage: python k_suppress.py infile.csv outfile.csv k')
         sys.exit(1)
-
-    fin = open(sys.argv[1], 'r')
-    csv_in = csv.reader(fin)
-    row_count = sum(1 for row in csv_in)
-    fin.seek(0)
+    
+    headers, rows = read_csv(filename=sys.argv[1])
     k = int(sys.argv[3])
-    headers = next(csv_in)
-
-    print(f" ---> Read {row_count} lines with {len(headers)} columns.")
-    sys.stdout.flush()
     
     # Write headers
     output_csv = []
@@ -32,16 +26,14 @@ if __name__ == '__main__':
     
     # Count each tuple row
     counter = Counter()
-    for line in csv_in:
+    for line in rows:
         h = hashlib.md5()
         h.update(','.join(line).encode('utf-8'))
         counter.update([h.hexdigest()])
     
     # Second pass through data, only keeping rows with unique counts > k
-    fin.seek(0)
-    next(csv_in)
     output_csv = []
-    for line in csv_in:
+    for line in rows:
         h = hashlib.md5()
         h.update(','.join(line).encode('utf-8'))
         if counter[h.hexdigest()] > k:
@@ -53,6 +45,6 @@ if __name__ == '__main__':
         for row in output_csv:
             writer.writerow(row)
 
-    print(f" ---> Wrote {len(output_csv)} lines with {len(headers)} columns and k = {k} to {sys.argv[2]}.")
-
-    fin.close()
+    print(" ---> Wrote {} lines with {} columns and k = {} to {}.".format(len(output_csv), 
+                                                                         len(headers), k, 
+                                                                         sys.argv[2]))

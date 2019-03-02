@@ -6,22 +6,14 @@ Created on 2019-02-24
 Reads a CSV and rewrites it using only specified fields from a config file.
 """
 import sys, csv
-from file_util import read_int_config_file
+from file_util import read_int_config_file, read_csv
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
         print('Usage: python quasi_reduce.py infile.csv outfile.csv configfile')
         sys.exit(1)
 
-    fin = open(sys.argv[1], 'r')
-    csv_in = csv.reader(fin)
-    row_count = sum(1 for row in csv_in)
-    fin.seek(0)
-    headers = next(csv_in)
-
-    print(f" ---> Read {row_count} lines with {len(headers)} columns.")
-    sys.stdout.flush()
-    
+    headers, rows = read_csv(sys.argv[1])
     keep_headers = read_int_config_file(sys.argv[3])
     
     # Write only headers found in configfile
@@ -32,7 +24,7 @@ if __name__ == '__main__':
             output_csv[0].append(header)
 
     # Rewrite each line, only keep columns with headers found in configfile
-    for line in csv_in:
+    for line in rows:
         output_csv.append([])
         for i, item in enumerate(line):
             if headers[i] in keep_headers:
@@ -44,6 +36,7 @@ if __name__ == '__main__':
         for row in output_csv:
             writer.writerow(row)
 
-    print(f" ---> Wrote {len(output_csv)} lines with {len(keep_headers)}/{len(headers)} columns to {sys.argv[2]}.")
-
-    fin.close()
+    print(" ---> Wrote {} lines with {}/{} columns to {}.".format(len(output_csv), 
+                                                                  len(keep_headers), 
+                                                                  len(headers), 
+                                                                  sys.argv[2]))

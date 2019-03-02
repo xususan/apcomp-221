@@ -6,6 +6,7 @@ Created on 2019-02-18
 @maintainer samuelclay
 """
 
+import sys, csv
 
 def read_int_config_file(file_name):
     """
@@ -23,3 +24,18 @@ def read_int_config_file(file_name):
             continue
     fin.close()
     return sorted(ret_l)
+    
+def read_csv(filename):
+    fin = open(filename, 'r')
+    csv_in = csv.reader(fin)
+    headers = next(csv_in)
+    
+    rows = []
+    for line in csv_in:
+        rows.append(line)
+    
+    print(" ---> Read {} lines with {} columns.".format(len(rows), len(headers)))
+    sys.stdout.flush()
+    
+    return headers, rows
+    
