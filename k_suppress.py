@@ -55,7 +55,8 @@ if __name__ == '__main__':
                                                                           out_filename))
     
     total_completed = 0
-    courses = defaultdict(lambda: defaultdict(int))
+    course_completion_rates = defaultdict(lambda: defaultdict(int))
+    course_student_counts = defaultdict(int)
     for line in output_csv:
         completed = False
         for i, item in enumerate(line):
@@ -64,10 +65,12 @@ if __name__ == '__main__':
                 completed = True
         for i, item in enumerate(line):
             if headers[i] == 'course_id':
-                courses[item]['completed' if completed else 'attempted'] += 1
+                course_student_counts[item] += 1
+                course_completion_rates[item]['completed' if completed else 'attempted'] += 1
 
     completion_rate = total_completed/len(output_csv)
-    print(" ---> Completion rate overall: %s%%" % round(completion_rate*100, 2))
-    for course_id, rate in courses.items():
-        completion_rate = rate['completed']/(rate['completed']+rate['attempted'])
-        print(" ---> Completion rate for %s: %s%%" % (course_id, round(completion_rate*100, 2)))
+    print(" ---> Completion rate overall: %-7s %s%%" % (len(output_csv), round(completion_rate*100, 2)))
+    for course_id, rates in course_completion_rates.items():
+        student_count = course_student_counts[course_id]
+        completion_rate = rates['completed']/(rates['completed']+rates['attempted'])
+        print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
