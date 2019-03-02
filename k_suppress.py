@@ -7,7 +7,7 @@ Reads a CSV and writes out a new CSV with only non-unique rows with at least k e
 """
 import sys, csv
 import hashlib
-from collections import Counter
+from collections import Counter, defaultdict
 from file_util import columns_from_config_file, read_csv
 
 def qi_for_line(line, qi_columns, headers):
@@ -62,11 +62,20 @@ if __name__ == '__main__':
                                                                           k, 
                                                                           out_filename))
     
-    completed = 0
+    total_completed = 0
+    courses = defaultdict(lambda: defaultdict(int))
     for line in output_csv:
+        completed = False
         for i, item in enumerate(line):
             if headers[i] == 'completed' and item == "True":
-                completed += 1
-        
-    completion_rate = completed/len(output_csv)
-    print(" ---> Completion rate: %s%%" % round(completion_rate*100, 2))
+                total_completed += 1
+                completed = True
+        for i, item in enumerate(line):
+            if headers[i] == 'course_id':
+                courses[item]['completed' if completed else 'attempted'] += 1
+
+    completion_rate = total_completed/len(output_csv)
+    print(" ---> Completion rate overall: %s%%" % round(completion_rate*100, 2))
+    for course_id, rate in courses.items():
+        completion_rate = rate['completed']/(rate['completed']+rate['attempted'])
+        print(" ---> Completion rate for %s: %s%%" % (course_id, round(completion_rate*100, 2)))
