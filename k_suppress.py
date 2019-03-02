@@ -61,3 +61,12 @@ if __name__ == '__main__':
                                                                           remaining_column_count, 
                                                                           k, 
                                                                           out_filename))
+    
+    completed = 0
+    for line in output_csv:
+        for i, item in enumerate(line):
+            if headers[i] == 'completed' and item == "True":
+                completed += 1
+        
+    completion_rate = completed/len(output_csv)
+    print(" ---> Completion rate: %s%%" % round(completion_rate*100, 2))
