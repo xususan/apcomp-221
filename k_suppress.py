@@ -8,16 +8,8 @@ Reads a CSV and writes out a new CSV with only non-unique rows with at least k e
 import sys, csv
 import hashlib
 from collections import Counter, defaultdict
-from file_util import columns_from_config_file, read_csv
+from file_util import columns_from_config_file, read_csv, qi_for_line
 
-def qi_for_line(line, qi_columns, headers):
-    qi = []
-    
-    for i, item in enumerate(line):
-        if headers[i] in qi_columns:
-            qi.append(item)
-    
-    return qi
     
 if __name__ == '__main__':
     if len(sys.argv) < 4:

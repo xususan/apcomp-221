@@ -49,4 +49,13 @@ def read_csv(filename):
     sys.stdout.flush()
     
     return headers, rows
+
+def qi_for_line(line, qi_columns, headers):
+    qi = []
+    
+    for i, item in enumerate(line):
+        if headers[i] in qi_columns:
+            qi.append(item)
+    
+    return qi
     
