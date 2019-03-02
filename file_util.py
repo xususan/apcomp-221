@@ -5,7 +5,7 @@ Created on 2019-02-18
 @author samuelclay
 """
 
-import sys, csv, json
+import sys, csv, json, random
 
 def columns_from_config_file(file_name):
     """
@@ -51,6 +51,13 @@ def read_csv(filename):
     return headers, rows
 
 def qi_for_line(line, qi_columns, headers):
+    """
+    Returns a list of quasi identifiers for a given line, in order that they appear.
+    :param line: A list of entries, represents one row of a CSV
+    :param qi_columns: A list of strings, representing the list of quasi-identifiers
+    :param headers: A dictionary of all headers in the file.
+    :return: A list of all quasi-identifiers for the line, in order.
+    """
     qi = []
     
     for i, item in enumerate(line):
@@ -58,4 +65,31 @@ def qi_for_line(line, qi_columns, headers):
             qi.append(item)
     
     return qi
+
+def create_synthetic_record(line, qi_columns, headers, rows):
+    """
+    Creates a new record that has the same quasi-identifiers as a given line.
+    :param line: A list of entries, represents one row of a CSV
+    :param qi_columns: A list of strings, representing the list of quasi-identifiers
+    :param headers: A dictionary of all headers in the file.
+    :param rows: A list of lists, representing all rows in the dataset.
+    :return: A list of all quasi-identifiers for the line, in order.
+    """
+    qi = qi_for_line(line, qi_columns, headers)
+
+    # Get a random row from the dataset
+    random_row = random.sample(rows, 1)
+    quasi_index = 0
+
+    # Replace the quasi-identifiers in that line with the true quasi identifiers
+    new_entry = []
+    for i, item in enumerate(random_row):
+        if headers[i] in qi_columns:
+            new_entry.append(qi[quasi_index])
+            quasi_index += 1
+        else:
+            new_entry.append(item)
+
+    return new_entry
+
     

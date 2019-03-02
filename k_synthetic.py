@@ -4,13 +4,13 @@
 Created on 2019-02-18
 @author Susan
 Make a dataset k-anonymous by adding synthetic records, currently done
-by copying the record up to k times.
+by randomly sampling from the original dataset.
 """
-import random, sys, csv
+import sys, csv
 from collections import Counter
 import pdb
 import hashlib
-from file_util import columns_from_config_file, read_csv, qi_for_line
+from file_util import columns_from_config_file, read_csv, qi_for_line, create_synthetic_record
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
@@ -47,7 +47,8 @@ if __name__ == '__main__':
         output_csv.append(line)
         number_extra_copies = max(k - counter[h.hexdigest()], 0)
         for _ in range(number_extra_copies):
-            output_csv.append(line)
+            new_line = create_synthetic_record(line, qi_columns, headers, rows)
+            output_csv.append(new_line)
             counter.update([h.hexdigest()])
         assert(counter[h.hexdigest()] >= k)
 
