@@ -44,10 +44,12 @@ if __name__ == '__main__':
         h = hashlib.md5()
         qi = qi_for_line(line, qi_columns, headers)
         h.update(','.join(qi).encode('utf-8'))
-        number_of_copies = max(k - counter[h.hexdigest()], 0) + 1
-        for _ in range(number_of_copies):
+        output_csv.append(line)
+        number_extra_copies = max(k - counter[h.hexdigest()], 0)
+        for _ in range(number_extra_copies):
             output_csv.append(line)
             counter.update([h.hexdigest()])
+        assert(counter[h.hexdigest()] >= k)
 
 
     # Save rewritten CSV to outfile
