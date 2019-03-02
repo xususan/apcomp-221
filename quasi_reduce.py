@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # Write only headers found in configfile
     output_csv = []
     output_csv.append([])
-    for h, header in enumerate(headers):
+    for header in headers:
         if header not in delete_columns:
             output_csv[0].append(header)
 

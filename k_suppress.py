@@ -30,9 +30,8 @@ if __name__ == '__main__':
     k = int(sys.argv[4])
     
     # Write headers
-    output_csv = []
-    output_csv.append([])
-    for h, header in enumerate(headers):
+    output_csv = [[]]
+    for header in headers:
         output_csv[0].append(header)
     
     # Count each tuple row
@@ -44,12 +43,11 @@ if __name__ == '__main__':
         counter.update([h.hexdigest()])
     
     # Second pass through data, only keeping rows with unique counts > k
-    output_csv = []
     for line in rows:
         h = hashlib.md5()
         qi = qi_for_line(line, qi_columns, headers)
         h.update(','.join(qi).encode('utf-8'))
-        if counter[h.hexdigest()] > k:
+        if counter[h.hexdigest()] >= k:
             output_csv.append(line)
         
     # Save rewritten CSV to outfile
