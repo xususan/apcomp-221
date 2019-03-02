@@ -86,9 +86,8 @@ def create_synthetic_record(line, qi_columns, headers, rows):
     new_entry = []
     for i, item in enumerate(random_row):
         # Don't replace course id either
-        if headers[i] in qi_columns or headers[i] == "course_id":
-            new_entry.append(qi[quasi_index])
-            quasi_index += 1
+        if (headers[i] in qi_columns) or (headers[i] == "course_id"):
+            new_entry.append(line[i])
         else:
             new_entry.append(item)
 
