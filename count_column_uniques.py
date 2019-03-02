@@ -16,7 +16,7 @@ if __name__ == '__main__':
     csv_in = csv.reader(fin)
     header = next(csv_in)
 
-    columns = set(file_util.read_int_config_file(sys.argv[2]))
+    deleted, qi_columns = file_util.columns_from_config_file(sys.argv[2])
 
     # For each column, keep a dictionary of the possible values and their counts
     unique_values = {}
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     # Print out the count of each value for each column for the columns 
     # specified in the config file
     for i, col in enumerate(header):
-        if col in columns:
+        if col in qi_columns:
             print(col, unique_values[i])
 
 
