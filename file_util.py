@@ -4,11 +4,11 @@
 Created on 2019-02-18
 @author samuelclay
 """
-import pdb
 
 import sys, csv, json, random
+from count_column_uniques import count_column_uniques
 
-def columns_from_config_file(file_name):
+def columns_from_config_file(file_name, columns=None):
     """
     Read a configuration file that is a csv where the first entry in each line is a 
     header column name.
@@ -18,16 +18,17 @@ def columns_from_config_file(file_name):
     """
     fin = open(file_name, 'r')
     
-    delete_columns = []
-    quasi_identifiers = []
+    if not columns:
+        columns = ['delete_columns', 'quasi_identifiers']
     
     config = json.loads(fin.read())
-    delete_columns = [value.strip() for value in config["delete_columns"]]
-    quasi_identifiers = [value.strip() for value in config["quasi_identifiers"]]
-
+    data = {}
+    for key, values in config.items():
+        data[key] = sorted(v.strip() for v in values)
+        
     fin.close()
     
-    return sorted(delete_columns), sorted(quasi_identifiers)
+    return tuple(data[c] for c in columns)
     
 def read_csv(filename):
     """
@@ -50,6 +51,17 @@ def read_csv(filename):
     sys.stdout.flush()
     
     return headers, rows
+
+def write_csv_to_file(output_csv, out_filename):
+    """
+    Writes a CSV file to disk.
+    :param output_csv: CSV type from the CSV library
+    :param out_filename: String of file name to write to
+    """
+    with open(out_filename, 'w') as outfile:
+        writer = csv.writer(outfile)
+        for row in output_csv:
+            writer.writerow(row)
 
 def qi_for_line(line, qi_columns, headers):
     """
