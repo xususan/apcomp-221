@@ -87,8 +87,6 @@ def create_synthetic_record(line, qi_columns, headers, rows):
     :param rows: A list of lists, representing all rows in the dataset.
     :return: A list of all quasi-identifiers for the line, in order.
     """
-    qi = qi_for_line(line, qi_columns, headers)
-
     # Get a random row from the dataset
     random_row = random.sample(rows, 1)[0]
 
@@ -111,7 +109,6 @@ def create_bins(min_per_bin, dict_of_counts):
 
     for key in dict_of_counts.keys():
         try:
-            float_of_key = float(key)
             numeric_keys.append(key)
         except:
             bins.append(key)
@@ -127,6 +124,12 @@ def create_bins(min_per_bin, dict_of_counts):
     return bins
 
 def count_column_uniques(rows, headers):
+    """
+    Get the number of unique values in each column of a dataset.
+    :param headers: A dictionary of all headers in the file.
+    :param rows: A list of lists, representing all rows in the dataset.
+    :return: A dictionary of columns with a dictionary of counts of unique column values
+    """
     unique_values = {}
     for col in headers:
         unique_values[col] = {}
