@@ -25,3 +25,6 @@ def test_count_columns():
                        'column2': {2: 3, 1: 1, 3: 1, 5: 1}, 
                        'column3': {3: 2, 1: 2, 2: 1, 6: 1}}
 
+def test_blur_column():
+    blurred = blur_column("column1", 4, rows, headers):
+

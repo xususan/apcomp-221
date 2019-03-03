@@ -7,20 +7,6 @@ Get the number of unique values in each column of a dataset.
 """
 import sys, csv, file_util
 
-def count_column_uniques(rows, headers):
-    unique_values = {}
-    for col in headers:
-        unique_values[col] = {}
-
-    for line in rows:
-        for index, item in enumerate(line):
-            col_name = headers[index]
-            if item in unique_values[col_name]:
-                unique_values[col_name][item] += 1
-            else:
-                unique_values[col_name][item] = 1
-    return unique_values
-    
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print('Usage: python count_column_uniques.py file config_file')
