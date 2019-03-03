@@ -21,3 +21,7 @@
 
 ## 5. k-anonymous generalization, blurring, and suppression
 
+## 6. l-diversity
+`python3 l_diversity.py quasi.csv quasi.config`
+
+
