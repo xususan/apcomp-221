@@ -18,6 +18,8 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     :param qi_columns: list of columns to count unique values in for suppressing
     :param out_filename: string of output csv file name
     :param k: integer of k-anonymity value
+    :return: list of list of strings, each list being a row of columns with the first row 
+             being header column names
     """
     # Write headers
     output_csv = [[]]
