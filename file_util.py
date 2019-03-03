@@ -110,10 +110,9 @@ def create_bins(min_per_bin, dict_of_counts):
     numeric_keys = []
 
     for key in dict_of_counts.keys():
-        try:
-            float_of_key = float(key)
+        if key.isnumeric():
             numeric_keys.append(key)
-        except:
+        else:
             bins.append(key)
 
     sorted_keys = sorted(numeric_keys, key= lambda x: float(x))
