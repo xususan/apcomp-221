@@ -7,16 +7,14 @@ Get the number of unique values in each column of a dataset.
 """
 import sys, csv, file_util
 
-if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print('Usage: python get_counts.py file config_file')
-        sys.exit(1)
-
-    fin = open(sys.argv[1], 'r')
-    csv_in = csv.reader(fin)
+def count_column_uniques(csv_in, config):
+    """
+    Prints out the counts of unique values in each column of a dataset.
+    :param csv_in: csv reader file
+    """
     header = next(csv_in)
-
-    deleted, qi_columns = file_util.columns_from_config_file(sys.argv[2])
+    
+    deleted, qi_columns = file_util.columns_from_config_file(config)
 
     # For each column, keep a dictionary of the possible values and their counts
     unique_values = {}
@@ -36,6 +34,18 @@ if __name__ == '__main__':
     for i, col in enumerate(header):
         if col in qi_columns:
             print(col, unique_values[i])
-
-
+    
+    return unique_values
+    
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print('Usage: python count_column_uniques.py file config_file')
+        sys.exit(1)
+        
+    config = sys.argv[2]
+    fin = open(sys.argv[1], 'r')
+    csv_in = csv.reader(fin)
+    
+    count_column_uniques(csv_in, config)
+    
     fin.close()
