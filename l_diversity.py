@@ -35,7 +35,7 @@ if __name__ == '__main__':
         h = ','.join(qi)
 
         if h not in dictionary_entries:
-            entries_seen =  {key[1]: set([]) for key in non_identifying_columns}
+            entries_seen = {key[1]: set([]) for key in non_identifying_columns}
         else:
             entries_seen = dictionary_entries[h]
 

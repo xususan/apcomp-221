@@ -92,8 +92,66 @@ def create_synthetic_record(line, qi_columns, headers, rows):
 
     return new_entry
 
+def count_column_uniques(rows, headers):
+    unique_values = {}
+    for col in headers:
+        unique_values[col] = {}
+
+    for line in rows:
+        for index, item in enumerate(line):
+            col_name = headers[index]
+            if item in unique_values[col_name]:
+                unique_values[col_name][item] += 1
+            else:
+                unique_values[col_name][item] = 1
+    return unique_values
+
+
+def create_bins(min_per_bin, dict_of_values): 
+    bins = []
+    n_in_bin = 0
+    numeric_keys = []
+
+    for key in dict_of_values.keys():
+        try:
+            float_of_key = float(key)
+            numeric_keys.append(key)
+        except:
+            bins.append(key)
+
+    sorted_keys = sorted(numeric_keys, key= lambda x: float(x))
+    for key in sorted_keys:
+        n_in_bin += dict_of_values[key]
+        if n_in_bin > min_per_bin:
+            bins.append(key)
+            n_in_bin = 0
+
+    return bins
+
+headers, rows = read_csv("quasi.csv")
+unique_values = count_column_uniques(rows, headers)
+
+
 def blur_entry(column_name, value):
     """Blurs entry for a column.
     """
-    return value
+    bins_for_column = create_bins(10, unique_values[column_name])
+
+    value_to_return = bins_for_column[0]
+    try:
+        numeric_value = float(value)
+    except:
+        return bins_for_column[0]
+
+    for bin_value in bins_for_column:
+        try:
+            numeric_bin = float(bin_value)
+            if numeric_value >= numeric_bin:
+                value_to_return = numeric_bin
+            else:
+                break
+        except:
+            continue
+
+    return str(value_to_return)
     
