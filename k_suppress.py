@@ -19,7 +19,6 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     :param out_filename: string of output csv file name
     :param k: integer of k-anonymity value
     """
-    print("Columns:", delete_columns, qi_columns, headers)
     # Write headers
     output_csv = [[]]
     for header in headers:
