@@ -104,21 +104,25 @@ def create_synthetic_record(line, qi_columns, headers, rows):
     return new_entry
 
 
-def create_bins(min_per_bin, dict_of_values): 
+def create_bins(min_per_bin, dict_of_counts): 
     bins = []
     n_in_bin = 0
     numeric_keys = []
 
-    for key in dict_of_values.keys():
+    print(dict_of_counts)
+    for key in dict_of_counts.keys():
         try:
             float_of_key = float(key)
             numeric_keys.append(key)
         except:
             bins.append(key)
+    print(bins)
+    print(numeric_keys)
 
     sorted_keys = sorted(numeric_keys, key= lambda x: float(x))
+
     for key in sorted_keys:
-        n_in_bin += dict_of_values[key]
+        n_in_bin += dict_of_counts[key]
         if n_in_bin > min_per_bin:
             bins.append(key)
             n_in_bin = 0
@@ -140,7 +144,7 @@ def count_column_uniques(rows, headers):
     return unique_values
 
 
-def blur_column(column_name, value, count_column_uniques):
+def blur_column(column_name, value, unique_values):
     """Blurs entry for a column.
     """
 
@@ -165,5 +169,8 @@ def blur_column(column_name, value, count_column_uniques):
     return str(value_to_return)
 
 def generalize_column(column_name, value, count_column_uniques):
-    return value
+    if count_column_uniques[column_name][value] >= 10:
+        return value
+    else:
+        return "*"
     

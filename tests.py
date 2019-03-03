@@ -5,8 +5,7 @@ Created on 2019-03-03
 @author samuelclay
 Unit tests for k-suppression, k-synthetic, and k-blurring of de-identified data in CSV files.
 """
-from file_util import *
-from file_util import count_column_uniques
+from file_util import count_column_uniques, blur_column, create_bins
 from k_suppress import k_suppress
 
 headers = ['column1', 'column2', 'column3']
@@ -45,5 +44,17 @@ def test_k_suppress():
     assert output_csv == []
 
 def test_blur_column():
-    # blurred = blur_column("column1", 4, rows, headers)
+    # uniques = count_column_uniques(rows, headers)
+    # blurred = blur_column("column1", 4, uniques)
+    # print(blurred)
     pass
+
+
+def test_create_bins():
+    uniques = count_column_uniques(rows, headers)
+    print(create_bins(1, uniques['column1']))
+
+
+test_count_columns()
+test_blur_column()
+test_create_bins()
