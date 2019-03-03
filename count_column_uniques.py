@@ -17,7 +17,7 @@ if __name__ == '__main__':
     headers, rows = file_util.read_csv(sys.argv[1])
     deleted, qi_columns = file_util.columns_from_config_file(config)
 
-    unique_values = count_column_uniques(rows, headers)
+    unique_values = file_util.count_column_uniques(rows, headers)
 
     for col in qi_columns:
         print(col, unique_values[col])

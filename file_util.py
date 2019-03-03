@@ -6,7 +6,6 @@ Created on 2019-02-18
 """
 
 import sys, csv, json, random
-from count_column_uniques import count_column_uniques
 
 def columns_from_config_file(file_name, columns=None):
     """
@@ -126,12 +125,24 @@ def create_bins(min_per_bin, dict_of_values):
 
     return bins
 
+def count_column_uniques(rows, headers):
+    unique_values = {}
+    for col in headers:
+        unique_values[col] = {}
 
-def blur_column(column_name, value, rows, headers):
+    for line in rows:
+        for index, item in enumerate(line):
+            col_name = headers[index]
+            if item in unique_values[col_name]:
+                unique_values[col_name][item] += 1
+            else:
+                unique_values[col_name][item] = 1
+    return unique_values
+
+
+def blur_column(column_name, value, count_column_uniques):
     """Blurs entry for a column.
     """
-    global unique_values
-    unique_values = count_column_uniques(rows, headers)
 
     bins_for_column = create_bins(10, unique_values[column_name])
 
@@ -153,6 +164,6 @@ def blur_column(column_name, value, rows, headers):
 
     return str(value_to_return)
 
-def generalize_column(column_name, value, rows, headers):
+def generalize_column(column_name, value, count_column_uniques):
     return value
     

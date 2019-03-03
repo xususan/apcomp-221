@@ -9,7 +9,7 @@ just makes the k-suppression have to do less work and suppress fewer values.
 """
 import sys
 from collections import defaultdict
-from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column
+from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column, count_column_uniques
 
     
 if __name__ == '__main__':
@@ -28,6 +28,8 @@ if __name__ == '__main__':
     output_csv = [[]]
     for header in headers:
         output_csv[0].append(header)
+
+    unique_values = count_column_uniques()
     
     # Second pass through data, only keeping rows with unique counts > k
     for line in rows:
