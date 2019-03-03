@@ -34,10 +34,10 @@ if __name__ == '__main__':
         output_csv.append([])
         for i, item in enumerate(line):
             if headers[i] in blur_columns:
-                blurred_column = blur_column(headers[i], item)
+                blurred_column = blur_column(headers[i], item, headers, rows)
                 output_csv[-1].append(blurred_column)
             elif headers[i] in generalize_columns:
-                generalized_column = generalize_column(headers[i], item)
+                generalized_column = generalize_column(headers[i], item, headers, rows)
                 output_csv[-1].append(generalized_column)        
     
     # Save rewritten CSV to outfile

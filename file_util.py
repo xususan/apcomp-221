@@ -104,20 +104,6 @@ def create_synthetic_record(line, qi_columns, headers, rows):
 
     return new_entry
 
-def count_column_uniques(rows, headers):
-    unique_values = {}
-    for col in headers:
-        unique_values[col] = {}
-
-    for line in rows:
-        for index, item in enumerate(line):
-            col_name = headers[index]
-            if item in unique_values[col_name]:
-                unique_values[col_name][item] += 1
-            else:
-                unique_values[col_name][item] = 1
-    return unique_values
-
 
 def create_bins(min_per_bin, dict_of_values): 
     bins = []
@@ -140,13 +126,13 @@ def create_bins(min_per_bin, dict_of_values):
 
     return bins
 
-headers, rows = read_csv("quasi.csv")
-unique_values = count_column_uniques(rows, headers)
 
-
-def blur_entry(column_name, value):
+def blur_column(column_name, value, rows, headers):
     """Blurs entry for a column.
     """
+    global unique_values
+    unique_values = count_column_uniques(rows, headers)
+
     bins_for_column = create_bins(10, unique_values[column_name])
 
     value_to_return = bins_for_column[0]
@@ -166,4 +152,7 @@ def blur_entry(column_name, value):
             continue
 
     return str(value_to_return)
+
+def generalize_column(column_name, value, rows, headers):
+    return value
     
