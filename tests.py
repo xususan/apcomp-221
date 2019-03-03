@@ -60,7 +60,3 @@ def test_create_bins():
     uniques = count_column_uniques(rows, headers)
     print(create_bins(1, uniques['column1']))
 
-
-test_count_columns()
-test_blur_column()
-test_create_bins()
