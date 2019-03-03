@@ -7,7 +7,8 @@ Count how many records are l-diverse.
 """
 import sys
 from collections import Counter
-from file_util import columns_from_config_file, read_csv, qi_for_line
+from file_util import columns_from_config_file, read_csv
+from deidentifier_util import qi_for_line
 
 def l_diversity(headers, rows, delete_columns, qi_columns):
     """

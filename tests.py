@@ -6,7 +6,7 @@ Created on 2019-03-03
 Unit tests for k-suppression, k-synthetic, and k-blurring of de-identified data in CSV files.
 """
 import pytest
-from file_util import count_column_uniques, blur_column, create_bins
+from deidentifier_util import count_column_uniques, blur_column, create_bins
 from k_suppress import k_suppress
 from k_synthetic import k_synthetic
 from l_diversity import l_diversity

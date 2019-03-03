@@ -9,7 +9,8 @@ by randomly sampling from the original dataset.
 import sys
 from collections import Counter, defaultdict
 import hashlib
-from file_util import columns_from_config_file, read_csv, qi_for_line, create_synthetic_record, write_csv_to_file
+from file_util import columns_from_config_file, read_csv, write_csv_to_file
+from deidentifier_util import qi_for_line, create_synthetic_record
 
 def k_synthetic(headers, rows, delete_columns, qi_columns, out_filename, k):
     """

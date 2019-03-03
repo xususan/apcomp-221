@@ -8,7 +8,8 @@ Reads a CSV and writes out a new CSV with only non-unique rows with at least k e
 import sys
 import hashlib
 from collections import Counter, defaultdict
-from file_util import columns_from_config_file, read_csv, qi_for_line, write_csv_to_file
+from file_util import columns_from_config_file, read_csv, write_csv_to_file
+from deidentifier_util import qi_for_line
 
 def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     """
