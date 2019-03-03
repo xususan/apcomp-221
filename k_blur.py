@@ -10,20 +10,19 @@ just makes the k-suppression have to do less work and suppress fewer values.
 import sys
 from collections import defaultdict
 from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column, count_column_uniques, create_bins
-import pdb
     
-if __name__ == '__main__':
-    if len(sys.argv) < 4:
-        print('Usage: python k_blur.py infile.csv configfile outfile.csv k')
-        sys.exit(1)
-    
-    headers, rows = read_csv(filename=sys.argv[1])
-    blur_columns, generalize_columns = columns_from_config_file(sys.argv[2], 
-                                                                columns=['blur_columns',
-                                                                         'generalize_columns'])
-    out_filename = sys.argv[3]
-    k = int(sys.argv[4])
-    
+
+def k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k):
+    """
+    :param headers: list of strings with column headers
+    :param rows: iter list of rows from csv dataset
+    :param blur_columns: list of columns to blur from output csv
+    :param generalize_columns: list of columns to generalize/suppress
+    :param out_filename: string of output csv file name
+    :param k: integer of k-anonymity value
+    :return: list of list of strings, each list being a row of columns with the first row 
+             being header column names
+    """
     # Write headers
     output_csv = [[]]
     for header in headers:
@@ -76,3 +75,19 @@ if __name__ == '__main__':
         student_count = course_student_counts[course_id]
         completion_rate = rates['completed']/(rates['completed']+rates['attempted'])
         print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
+    
+    return output_csv
+    
+if __name__ == '__main__':
+    if len(sys.argv) < 4:
+        print('Usage: python k_blur.py infile.csv configfile outfile.csv k')
+        sys.exit(1)
+    
+    headers, rows = read_csv(filename=sys.argv[1])
+    blur_columns, generalize_columns = columns_from_config_file(sys.argv[2], 
+                                                                columns=['blur_columns',
+                                                                         'generalize_columns'])
+    out_filename = sys.argv[3]
+    k = int(sys.argv[4])
+    
+    k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k)
