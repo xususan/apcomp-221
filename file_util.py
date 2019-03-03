@@ -144,14 +144,12 @@ def count_column_uniques(rows, headers):
     return unique_values
 
 
-def blur_column(column_name, value, unique_values, min_bin_size):
+def blur_column(column_name, value, bins_for_column):
     """
     Blurs entry for a column.
     :param column_name: Name of the column for which this value belongs.
     :param value: The value 
     """
-
-    bins_for_column = create_bins(min_bin_size, unique_values[column_name])
 
     value_to_return = bins_for_column[0]
     try:

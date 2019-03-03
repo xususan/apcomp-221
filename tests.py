@@ -88,13 +88,15 @@ def test_k_suppress(rows, headers):
 
 def test_blur_column(rows, headers):
     uniques = count_column_uniques(rows, headers)
-    blurred = blur_column("column1", "4", uniques, 1)
+    bins_1 = create_bins(1, uniques['column1'])
+    blurred = blur_column("column1", "4", bins_1)
     assert(blurred == "4")
-    blurred = blur_column("column1", "4", uniques, 2)
-    assert(blurred == "3")
+    bins_2 = create_bins(2, uniques['column1'])
+    blurred = blur_column("column1", "7",bins_2)
+    assert(blurred == "4")
 
 
 def test_create_bins(rows, headers):
     uniques = count_column_uniques(rows, headers)
-    assert(create_bins(1, uniques['column1']) == ['1', '2', '3', '4'])
-    assert(create_bins(2, uniques['column1']) == ['1', '2', '3'])
+    assert(create_bins(1, uniques['column1']) == ['1', '2', '3', '4', '7'])
+    assert(create_bins(2, uniques['column1']) == ['1', '2', '3', '4'])
