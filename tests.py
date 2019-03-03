@@ -121,9 +121,8 @@ def test_blur_column(rows, headers):
     blurred = blur_column("column1", "4", bins_1)
     assert(blurred == "4")
     bins_2 = create_bins(2, uniques['column1'])
-    blurred = blur_column("column1", "7",bins_2)
+    blurred = blur_column("column1", "7", bins_2)
     assert(blurred == "4")
-
 
 def test_create_bins(rows, headers):
     uniques = count_column_uniques(rows, headers)
