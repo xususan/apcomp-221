@@ -1,5 +1,9 @@
 # APComp 221
 
+## General
+
+`python3 count_columns_uniques.py mid_sample_set.csv quasi.config`
+
 ## 2. quasi-identifier CSV
 
 `python3 quasi_reduce.py mid_sample_set.csv quasi.csv quasi.config`
