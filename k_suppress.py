@@ -10,17 +10,15 @@ import hashlib
 from collections import Counter, defaultdict
 from file_util import columns_from_config_file, read_csv, qi_for_line, write_csv_to_file
 
-    
-if __name__ == '__main__':
-    if len(sys.argv) < 4:
-        print('Usage: python k_suppress.py infile.csv configfile outfile.csv k')
-        sys.exit(1)
-    
-    headers, rows = read_csv(filename=sys.argv[1])
-    delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
-    out_filename = sys.argv[3]
-    k = int(sys.argv[4])
-    
+def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
+    """
+    :param headers: list of strings with column headers
+    :param rows: iter list of rows from csv dataset
+    :param delete_columns: list of columns to suppress from output csv
+    :param qi_columns: list of columns to count unique values in for suppressing
+    :param out_filename: string of output csv file name
+    :param k: integer of k-anonymity value
+    """
     # Write headers
     output_csv = [[]]
     for header in headers:
@@ -71,3 +69,17 @@ if __name__ == '__main__':
         student_count = course_student_counts[course_id]
         completion_rate = rates['completed']/(rates['completed']+rates['attempted'])
         print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
+    
+    return output_csv
+    
+if __name__ == '__main__':
+    if len(sys.argv) < 4:
+        print('Usage: python k_suppress.py infile.csv configfile outfile.csv k')
+        sys.exit(1)
+    
+    headers, rows = read_csv(filename=sys.argv[1])
+    delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
+    out_filename = sys.argv[3]
+    k = int(sys.argv[4])
+    
+    k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k)

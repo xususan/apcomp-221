@@ -5,7 +5,7 @@ Created on 2019-02-18
 @author Susan
 Get the number of unique values in each column of a dataset.
 """
-import sys, csv, file_util
+import sys, file_util
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
