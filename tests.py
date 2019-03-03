@@ -15,7 +15,7 @@ def headers():
 
 @pytest.fixture
 def rows():
-    return iter([
+    return [
         ["1", "2", "3"],
         ["1", "1", "1"],
         ["1", "1", "1"],
@@ -30,7 +30,7 @@ def rows():
         ["3", "2", "1"],
         ["3", "2", "1"],
         ["4", "5", "6"],
-    ])
+    ]
 
 
 def test_count_columns(rows, headers):
@@ -47,7 +47,7 @@ def test_k_suppress(rows, headers):
     k = 3
     output_csv = k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k)
     print(output_csv)
-    assert output_csv == []
+    assert output_csv == [['column1', 'column2', 'column3'], ['1', '2', '3'], ['1', '1', '1'], ['1', '1', '1'], ['1', '1', '1'], ['2', '2', '2'], ['2', '2', '2'], ['2', '2', '2'], ['3', '3', '3'], ['3', '3', '3'], ['3', '3', '3'], ['3', '2', '1'], ['3', '2', '1'], ['3', '2', '1']]
 
 def test_blur_column():
     # uniques = count_column_uniques(rows, headers)
