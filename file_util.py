@@ -109,21 +109,18 @@ def create_bins(min_per_bin, dict_of_counts):
     n_in_bin = 0
     numeric_keys = []
 
-    print(dict_of_counts)
     for key in dict_of_counts.keys():
         try:
             float_of_key = float(key)
             numeric_keys.append(key)
         except:
             bins.append(key)
-    print(bins)
-    print(numeric_keys)
 
     sorted_keys = sorted(numeric_keys, key= lambda x: float(x))
 
     for key in sorted_keys:
         n_in_bin += dict_of_counts[key]
-        if n_in_bin > min_per_bin:
+        if n_in_bin >= min_per_bin:
             bins.append(key)
             n_in_bin = 0
 
@@ -144,11 +141,11 @@ def count_column_uniques(rows, headers):
     return unique_values
 
 
-def blur_column(column_name, value, unique_values):
+def blur_column(column_name, value, unique_values, min_bin_size):
     """Blurs entry for a column.
     """
 
-    bins_for_column = create_bins(10, unique_values[column_name])
+    bins_for_column = create_bins(min_bin_size, unique_values[column_name])
 
     value_to_return = bins_for_column[0]
     try:
@@ -168,8 +165,8 @@ def blur_column(column_name, value, unique_values):
 
     return str(value_to_return)
 
-def generalize_column(column_name, value, count_column_uniques):
-    if count_column_uniques[column_name][value] >= 10:
+def generalize_column(column_name, value, count_column_uniques, min_bin_size):
+    if count_column_uniques[column_name][value] >= min_bin_size:
         return value
     else:
         return "*"

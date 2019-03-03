@@ -51,8 +51,27 @@ def test_blur_column():
 
 
 def test_create_bins():
+    headers = ['column1', 'column2', 'column3']
+    rows = iter([
+        ["1", "2", "3"],
+        ["1", "1", "1"],
+        ["1", "1", "1"],
+        ["1", "1", "1"],
+        ["2", "2", "2"],
+        ["2", "2", "2"],
+        ["2", "2", "2"],
+        ["3", "3", "3"],
+        ["3", "3", "3"],
+        ["3", "3", "3"],
+        ["3", "2", "1"],
+        ["3", "2", "1"],
+        ["3", "2", "1"],
+        ["4", "5", "6"],
+    ])
+
     uniques = count_column_uniques(rows, headers)
-    print(create_bins(1, uniques['column1']))
+    assert(create_bins(1, uniques['column1']) == ['1', '2', '3', '4'])
+    assert(create_bins(2, uniques['column1']) == ['1', '2', '3'])
 
 
 test_count_columns()

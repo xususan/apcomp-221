@@ -29,17 +29,17 @@ if __name__ == '__main__':
     for header in headers:
         output_csv[0].append(header)
 
-    unique_values = count_column_uniques()
+    unique_values = count_column_uniques(rows, headers)
     
     # Second pass through data, only keeping rows with unique counts > k
     for line in rows:
         output_csv.append([])
         for i, item in enumerate(line):
             if headers[i] in blur_columns:
-                blurred_column = blur_column(headers[i], item, headers, rows)
+                blurred_column = blur_column(headers[i], item, unique_values, 10)
                 output_csv[-1].append(blurred_column)
             elif headers[i] in generalize_columns:
-                generalized_column = generalize_column(headers[i], item, headers, rows)
+                generalized_column = generalize_column(headers[i], item, unique_values, 10)
                 output_csv[-1].append(generalized_column)        
     
     # Save rewritten CSV to outfile
