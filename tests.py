@@ -8,6 +8,7 @@ Unit tests for k-suppression, k-synthetic, and k-blurring of de-identified data 
 import pytest
 from file_util import count_column_uniques, blur_column, create_bins
 from k_suppress import k_suppress
+from k_synthetic import k_synthetic
 from pprint import pprint
 
 @pytest.fixture
@@ -86,6 +87,23 @@ def test_k_suppress(rows, headers):
                           ['3', '2', '1'],
                           ['3', '2', '1'],
                           ['3', '2', '1']]
+
+def test_k_synthetic(rows, headers):
+    delete_columns = ['column1']
+    qi_columns = ['column3']
+    out_filename = 'test.csv'
+    
+    k = 2
+    assert len(rows) == 16
+    output_csv = k_synthetic(headers, rows, delete_columns, qi_columns, out_filename, k)
+    pprint(output_csv)
+    assert len(output_csv) == 18
+                          
+
+    k = 3
+    output_csv = k_synthetic(headers, rows, delete_columns, qi_columns, out_filename, k)
+    pprint(output_csv)
+    assert len(output_csv) == 20
 
 def test_blur_column(rows, headers):
     uniques = count_column_uniques(rows, headers)

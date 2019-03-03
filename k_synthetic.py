@@ -7,24 +7,19 @@ Make a dataset k-anonymous by adding synthetic records, currently done
 by randomly sampling from the original dataset.
 """
 import sys
-from collections import Counter,  defaultdict
+from collections import Counter, defaultdict
 import hashlib
 from file_util import columns_from_config_file, read_csv, qi_for_line, create_synthetic_record, write_csv_to_file
 
-if __name__ == '__main__':
-    if len(sys.argv) < 4:
-        print('Usage: python k_synthetic_records.py in_file config_file out_file k')
-        sys.exit(1)
-
-    headers, rows = read_csv(filename=sys.argv[1])
-
-    # Get names of columns to delete and quasi identifiers
-    delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
-    out_filename = sys.argv[3]
-
-    ctr = Counter()
-    k = int(sys.argv[4])
-
+def k_synthetic(headers, rows, delete_columns, qi_columns, out_filename, k):
+    """
+    :param headers: list of strings with column headers
+    :param rows: iter list of rows from csv dataset
+    :param delete_columns: list of columns to suppress from output csv
+    :param qi_columns: list of columns to count unique values in for synthetic additions
+    :param out_filename: string of output csv file name
+    :param k: integer of k-anonymity value
+    """
     # Write headers
     output_csv = [[]]
     for header in headers:
@@ -80,3 +75,19 @@ if __name__ == '__main__':
         completion_rate = rates['completed']/(rates['completed']+rates['attempted'])
         print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
 
+    return output_csv
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 4:
+        print('Usage: python k_synthetic_records.py in_file config_file out_file k')
+        sys.exit(1)
+
+    headers, rows = read_csv(filename=sys.argv[1])
+
+    # Get names of columns to delete and quasi identifiers
+    delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
+    out_filename = sys.argv[3]
+    k = int(sys.argv[4])
+
+    k_synthetic(headers, rows, delete_columns, qi_columns, out_filename, k)
