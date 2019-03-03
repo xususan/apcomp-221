@@ -9,6 +9,7 @@ import pytest
 from file_util import count_column_uniques, blur_column, create_bins
 from k_suppress import k_suppress
 from k_synthetic import k_synthetic
+from k_blur import k_blur
 from l_diversity import l_diversity
 from pprint import pprint
 
@@ -106,6 +107,23 @@ def test_k_synthetic(rows, headers):
     pprint(output_csv)
     assert len(output_csv) == 20
 
+def test_k_blur(rows, headers):
+    blur_columns = ['column1']
+    generalize_columns = ['column3']
+    out_filename = 'test.csv'
+    
+    k = 2
+    assert len(rows) == 16
+    output_csv = k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k)
+    pprint(output_csv)
+    assert len(output_csv) == 19
+                          
+
+    k = 3
+    output_csv = k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k)
+    pprint(output_csv)
+    assert len(output_csv) == 20
+    
 def test_l_diversity(rows, headers):
     delete_columns = ['column1']
     qi_columns = ['column3']
