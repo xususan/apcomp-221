@@ -19,6 +19,7 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     :param out_filename: string of output csv file name
     :param k: integer of k-anonymity value
     """
+    print("Columns:", delete_columns, qi_columns, headers)
     # Write headers
     output_csv = [[]]
     for header in headers:
@@ -29,6 +30,7 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     for line in rows:
         h = hashlib.md5()
         qi = qi_for_line(line, qi_columns, headers)
+        print("QI: ", qi)
         h.update(','.join(qi).encode('utf-8'))
         counter.update([h.hexdigest()])
     
