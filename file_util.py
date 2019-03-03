@@ -92,4 +92,8 @@ def create_synthetic_record(line, qi_columns, headers, rows):
 
     return new_entry
 
+def blur_entry(column_name, value):
+    """Blurs entry for a column.
+    """
+    return value
     
