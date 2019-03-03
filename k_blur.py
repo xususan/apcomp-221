@@ -9,8 +9,8 @@ just makes the k-suppression have to do less work and suppress fewer values.
 """
 import sys
 from collections import defaultdict
-from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column, count_column_uniques
-
+from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column, count_column_uniques, create_bins
+import pdb
     
 if __name__ == '__main__':
     if len(sys.argv) < 4:
@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     bins = {}
     for column in blur_columns:
-        bins[column] = create_bins(10, unique_values[column])
+        bins[column] = create_bins(k, unique_values[column])
     
     # Second pass through data, only keeping rows with unique counts > k
     for line in rows:
@@ -43,8 +43,10 @@ if __name__ == '__main__':
                 blurred_column = blur_column(headers[i], item, bins[column])
                 output_csv[-1].append(blurred_column)
             elif headers[i] in generalize_columns:
-                generalized_column = generalize_column(headers[i], item, unique_values, 10)
-                output_csv[-1].append(generalized_column)        
+                generalized_column = generalize_column(headers[i], item, unique_values, k)
+                output_csv[-1].append(generalized_column)
+            else:
+                output_csv[-1].append(item)        
     
     # Save rewritten CSV to outfile
     write_csv_to_file(output_csv, out_filename)
