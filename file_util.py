@@ -67,6 +67,29 @@ def qi_for_line(line, qi_columns, headers):
     
     return qi
 
+def split_line(line, qi_columns, id_columns, headers):
+    """
+    Splits a line into quasi identifiers and regular columns.
+    :param line: A list of entries, represents one row of a CSV
+    :param qi_columns: A list of strings, representing the list of quasi-identifiers
+    :param id_columns: A list of strings, representing the list of identifiers
+    :param headers: A dictionary of all headers in the file.
+    :return: A tuple, where the first element is a list of all 
+        quasi-identifiers for the line, in order; and the second element is a list
+        of all regular columns (non-identifying) for the line, in order.
+    """
+    qi = []
+    non_qi = []
+    
+    for i, item in enumerate(line):
+        if headers[i] in qi_columns:
+            qi.append(item)
+        elif headers[i] not in id_columns:
+            non_qi.append(item)
+        else:
+            continue
+    return qi, non_qi
+
 def create_synthetic_record(line, qi_columns, headers, rows):
     """
     Creates a new record that has the same quasi-identifiers as a given line.
