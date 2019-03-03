@@ -48,11 +48,12 @@ def test_k_suppress(rows, headers):
     print(output_csv)
     assert output_csv == [['column1', 'column2', 'column3'], ['1', '2', '3'], ['1', '1', '1'], ['1', '1', '1'], ['1', '1', '1'], ['2', '2', '2'], ['2', '2', '2'], ['2', '2', '2'], ['3', '3', '3'], ['3', '3', '3'], ['3', '3', '3'], ['3', '2', '1'], ['3', '2', '1'], ['3', '2', '1']]
 
-def test_blur_column():
-    # uniques = count_column_uniques(rows, headers)
-    # blurred = blur_column("column1", 4, uniques)
-    # print(blurred)
-    pass
+def test_blur_column(rows, headers):
+    uniques = count_column_uniques(rows, headers)
+    blurred = blur_column("column1", "4", uniques, 1)
+    assert(blurred == "4")
+    blurred = blur_column("column1", "4", uniques, 2)
+    assert(blurred == "3")
 
 
 def test_create_bins(rows, headers):

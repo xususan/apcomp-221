@@ -149,13 +149,13 @@ def blur_column(column_name, value, unique_values, min_bin_size):
 
     value_to_return = bins_for_column[0]
     try:
-        numeric_value = float(value)
+        numeric_value = int(value)
     except:
         return bins_for_column[0]
 
     for bin_value in bins_for_column:
         try:
-            numeric_bin = float(bin_value)
+            numeric_bin = int(bin_value)
             if numeric_value >= numeric_bin:
                 value_to_return = numeric_bin
             else:
