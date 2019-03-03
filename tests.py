@@ -35,7 +35,6 @@ def rows():
 
 def test_count_columns(rows, headers):
     uniques = count_column_uniques(rows, headers)
-    # print(uniques)
     assert uniques == {'column1': {'1': 4, '2': 3, '3': 6, '4': 1}, 
                        'column2': {'2': 7, '1': 3, '3': 3, '5': 1}, 
                        'column3': {'3': 4, '1': 6, '2': 3, '6': 1}}
@@ -56,7 +55,7 @@ def test_blur_column():
     pass
 
 
-def test_create_bins():
+def test_create_bins(rows, headers):
     uniques = count_column_uniques(rows, headers)
     assert(create_bins(1, uniques['column1']) == ['1', '2', '3', '4'])
     assert(create_bins(2, uniques['column1']) == ['1', '2', '3'])
