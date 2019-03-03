@@ -47,6 +47,7 @@ def test_k_suppress(rows, headers):
     delete_columns = ['column1']
     qi_columns = ['column3']
     out_filename = 'test.csv'
+    
     k = 2
     output_csv = k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k)
     pprint(output_csv)

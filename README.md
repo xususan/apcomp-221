@@ -9,7 +9,11 @@
 First install pytest:
 
     pip3 install pytest
-    pytest tests.py
+    pytest
+
+To run an individual test:
+
+    pytest -k k_suppress
 
 ## 2. quasi-identifier CSV
 
