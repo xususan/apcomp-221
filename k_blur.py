@@ -9,7 +9,8 @@ just makes the k-suppression have to do less work and suppress fewer values.
 """
 import sys
 from collections import defaultdict
-from file_util import columns_from_config_file, read_csv, write_csv_to_file, blur_column, generalize_column, count_column_uniques, create_bins
+from file_util import columns_from_config_file, read_csv, write_csv_to_file
+from deidentifier_util import blur_column, generalize_column, count_column_uniques, create_bins
     
 
 def k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k):
