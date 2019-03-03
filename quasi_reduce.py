@@ -6,7 +6,7 @@ Created on 2019-02-24
 Reads a CSV and rewrites it using only specified fields from a config file.
 """
 import sys, csv
-from file_util import columns_from_config_file, read_csv
+from file_util import columns_from_config_file, read_csv, write_csv_to_file
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
@@ -14,6 +14,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     headers, rows = read_csv(sys.argv[1])
+    out_filename = sys.argv[2]
     delete_columns, qi_columns = columns_from_config_file(sys.argv[3])
     
     # Write only headers found in configfile
@@ -31,10 +32,7 @@ if __name__ == '__main__':
                 output_csv[-1].append(item)
     
     # Save rewritten CSV to outfile
-    with open(sys.argv[2], 'w') as outfile:
-        writer = csv.writer(outfile)
-        for row in output_csv:
-            writer.writerow(row)
+    write_csv_to_file(output_csv, out_filename)
 
     remaining_column_count = len(headers) - len(delete_columns) - len(qi_columns)
     print(" ---> Wrote {} lines with {}+{}/{} columns to {}.".format(len(output_csv), 

@@ -6,11 +6,10 @@ Created on 2019-02-18
 Make a dataset k-anonymous by adding synthetic records, currently done
 by randomly sampling from the original dataset.
 """
-import sys, csv
+import sys
 from collections import Counter,  defaultdict
-import pdb
 import hashlib
-from file_util import columns_from_config_file, read_csv, qi_for_line, create_synthetic_record
+from file_util import columns_from_config_file, read_csv, qi_for_line, create_synthetic_record, write_csv_to_file
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
@@ -54,10 +53,7 @@ if __name__ == '__main__':
 
 
     # Save rewritten CSV to outfile
-    with open(out_filename, 'w') as outfile:
-        writer = csv.writer(outfile)
-        for row in output_csv:
-            writer.writerow(row)
+    write_csv_to_file(output_csv, out_filename)
 
     print(" ---> Wrote {} lines for k = {} to {}.".format(len(output_csv),
                                                           k, 
