@@ -28,7 +28,10 @@ def columns_from_config_file(file_name, columns=None):
 
     fin.close()
     
-    return tuple([sorted(locals()[c]) for c in columns])
+    locals_ = locals()
+    values = tuple([sorted(locals_[c]) for c in columns])
+    
+    return values
     
 def read_csv(filename):
     """
