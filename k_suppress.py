@@ -71,7 +71,7 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
     for course_id, rates in course_completion_rates.items():
         student_count = course_student_counts[course_id]
         completion_rate = rates['completed']/(rates['completed']+rates['attempted'])
-        print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
+        # print(" ---> Completion rate for %-30s: %-7s %s%%" % (course_id, student_count, round(completion_rate*100, 2)))
     
     return output_csv
     
