@@ -21,17 +21,13 @@ def columns_from_config_file(file_name, columns=None):
         columns = ['delete_columns', 'quasi_identifiers']
     
     config = json.loads(fin.read())
-    delete_columns = [value.strip() for value in config["delete_columns"]]
-    quasi_identifiers = [value.strip() for value in config["quasi_identifiers"]]
-    generalize_columns = [value.strip() for value in config["generalize_columns"]]
-    blur_columns = [value.strip() for value in config["blur_columns"]]
-
+    data = {}
+    for key, values in config.items():
+        data[key] = sorted(v.strip() for v in values)
+        
     fin.close()
     
-    locals_ = locals()
-    values = tuple([sorted(locals_[c]) for c in columns])
-    
-    return values
+    return tuple(data[c] for c in columns)
     
 def read_csv(filename):
     """
