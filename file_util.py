@@ -148,7 +148,8 @@ def blur_column(column_name, value, bins_for_column):
     """
     Blurs entry for a column.
     :param column_name: Name of the column for which this value belongs.
-    :param value: The value 
+    :param value: The value to blur.
+    :param bins_for_column: The bins with which to 
     """
 
     value_to_return = bins_for_column[0]
@@ -170,6 +171,9 @@ def blur_column(column_name, value, bins_for_column):
     return str(value_to_return)
 
 def generalize_column(column_name, value, count_column_uniques, min_bin_size):
+    """
+    Blurs 
+    """
     if count_column_uniques[column_name][value] >= min_bin_size:
         return value
     else:

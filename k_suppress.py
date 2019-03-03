@@ -37,7 +37,6 @@ def k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k):
         h = hashlib.md5()
         qi = qi_for_line(line, qi_columns, headers)
         h.update(','.join(qi).encode('utf-8'))
-        print("Line:", h.hexdigest(), k, qi)
         if counter[h.hexdigest()] >= k:
             output_csv.append(line)
         
