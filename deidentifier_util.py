@@ -46,6 +46,13 @@ def create_synthetic_record(line, qi_columns, headers, rows):
 
 
 def create_bins(min_per_bin, dict_of_counts): 
+    """
+    Create bins based on the frequency of values.
+    :param min_per_bin: The minimum frequency in each bin.
+    :param dict_of_counts: A dictionary of counts for each value.
+    :return: A list, where the first element is '', representing missing values,
+        and every other element is a string of int.
+    """
     bins = []
     n_in_bin = 0
     numeric_keys = []
@@ -93,7 +100,7 @@ def blur_column(column_name, value, bins_for_column):
     :param column_name: String, name of the column for which this value belongs.
     :param value: String of int, the value to blur.
     :param bins_for_column: List, the bins with which to blur the value. 
-    :return:
+    :return: string of int, the blurred value.
     """
 
     value_to_return = bins_for_column[0]
@@ -116,7 +123,12 @@ def blur_column(column_name, value, bins_for_column):
 
 def generalize_column(column_name, value, count_column_uniques, min_bin_size):
     """
-    Generalizes an entry in a column.
+    Generalizes an entry in a column. Returns * if value must be hidden.
+    :param column_name: String, name of the column for which this value belongs.
+    :param value: String of int, the value to generalize.
+    :param min_bin_size: If value is repeated in the dataset less than 
+        min_bin_size times, value will be generalized to *.
+    :return: string, the generalized value.
     """
     if count_column_uniques[column_name][value] >= min_bin_size:
         return value

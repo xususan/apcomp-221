@@ -9,6 +9,7 @@ import sys
 from collections import Counter
 from file_util import columns_from_config_file, read_csv
 from deidentifier_util import qi_for_line
+import pdb
 
 def l_diversity(headers, rows, delete_columns, qi_columns):
     """
@@ -45,8 +46,6 @@ def l_diversity(headers, rows, delete_columns, qi_columns):
     for qi, d in dictionary_entries.items():
         for column, l_val in d.items():
             counter.update([len(l_val)])
-
-    print(counter)
     
     return counter
     
@@ -60,5 +59,8 @@ if __name__ == '__main__':
     # Get names of columns to delete and quasi identifiers
     delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
 
-    l_diversity(headers, rows, delete_columns, qi_columns)
+    l_div_counter = l_diversity(headers, rows, delete_columns, qi_columns)
+
+    for l_val, count in l_div_counter.items():
+        print("{}\t{}".format(l_val, count))
     
