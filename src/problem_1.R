@@ -26,6 +26,6 @@ plot(xs, res, type='l')
 ## Calculate the total number of people identified, total population, 
 ## and percent of people identifiable for Cambridge, West Palm Beach, and Manhattan.
 
-read_and_calc("westpalmbeach.csv")
-read_and_calc("manhattan.csv")
-read_and_calc("cambridge.csv")
+read_and_calc("../datasets/westpalmbeach.csv")
+read_and_calc("../datasets/manhattan.csv")
+read_and_calc("../datasets/cambridge.csv")
