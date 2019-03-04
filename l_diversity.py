@@ -11,19 +11,15 @@ from file_util import columns_from_config_file, read_csv
 from deidentifier_util import qi_for_line
 import pdb
 
-def l_diversity(headers, rows, delete_columns, qi_columns):
+def l_diversity(headers, rows, sensitive_columns, qi_columns):
     """
     :param headers: list of strings with column headers
     :param rows: iter list of rows from csv dataset
-    :param delete_columns: list of columns to suppress from output csv
+    :param sensitive_columns: list of columns to count l-diversity in
     :param qi_columns: list of columns to count unique values in for suppressing
     :return: counter of all possible l-diversity values
     """
-    non_identifying_columns = []
-    for header in enumerate(headers):
-        if header not in qi_columns and header not in delete_columns:
-            non_identifying_columns.append(header)
-
+    non_identifying_columns = sensitive_columns
 
     # Read over each line and count how many times they have occurred
     dictionary_entries = {}
@@ -33,12 +29,14 @@ def l_diversity(headers, rows, delete_columns, qi_columns):
         h = ','.join(qi)
 
         if h not in dictionary_entries:
-            entries_seen = {key[1]: set([]) for key in non_identifying_columns}
+            entries_seen = {key: set([]) for key in non_identifying_columns}
         else:
             entries_seen = dictionary_entries[h]
 
-        for i, column_name in non_identifying_columns:
-            entries_seen[column_name].add(line[i])
+
+        for i, column_name in enumerate(headers):
+            if column_name in non_identifying_columns:
+                entries_seen[column_name].add(line[i])
         dictionary_entries[h] = entries_seen
 
     # Count all the possible l-diversity values
@@ -57,9 +55,10 @@ if __name__ == '__main__':
     headers, rows = read_csv(filename=sys.argv[1])
 
     # Get names of columns to delete and quasi identifiers
-    delete_columns, qi_columns = columns_from_config_file(sys.argv[2])
+    sensitive_columns, qi_columns = columns_from_config_file(sys.argv[2], 
+        columns=['sensitive_columns','quasi_identifiers'])
 
-    l_div_counter = l_diversity(headers, rows, delete_columns, qi_columns)
+    l_div_counter = l_diversity(headers, rows, sensitive_columns, qi_columns)
 
     for l_val, count in l_div_counter.items():
         print("{}\t{}".format(l_val, count))
