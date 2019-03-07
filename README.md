@@ -4,14 +4,6 @@
 
 We are using Python 3 (any version should work). We also use PyTest for testing purposes. 
 
-## Counters
-
-count_column_uniques helps us understand the distribution of our quasi-identifiers, by printing out what the unique values are for each quasi-identifier column, and the number of times each value appears in the dataset.
-
-Example usage: 
-
-    python3 count_columns_uniques.py mid_sample_set.csv quasi.config
-
 ## Run tests
 
 First install pytest:
@@ -22,6 +14,22 @@ First install pytest:
 To run an individual test:
 
     pytest -k k_suppress
+
+## Config File
+An example config file (which contains the quasi-identifiers and identifiers specified on Canvas) can be found in quasi.config. The config file is a JSON, with the following entries:
+- `delete_columns`: a list of column names that are identifiers and should be removed from the dataset altogether.
+- `quasi_identifiers`: a list of column names that are quasi-identifiers, and will need to be made k-anonymous.
+- `generalize_columns`: used in `k_blur.py`, a list of columns to generalize (i.e, replace city with state and so on)
+- `blur_columns`: used in `k_blur.py`, a list of (continuous) columns to group into larger bin sizes.
+- `sensitive_columns`: used in `l_diversity.py`, a list of columns that may be considered sensitive to members of the dataset.
+
+## Data Analysis
+
+count_column_uniques helps us understand the distribution of our quasi-identifiers, by printing out what the unique values are for each quasi-identifier column, and the number of times each value appears in the dataset.
+
+Example usage: 
+
+    python3 count_columns_uniques.py mid_sample_set.csv quasi.config
 
 ## 2. quasi-identifier CSV
 
