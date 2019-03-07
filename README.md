@@ -105,12 +105,13 @@ Run `k_suppress.py` with the output from the previous step.
 
 ## 6. l-diversity
 
-`l_diversity.py` counts, for each feature, how many values the feature takes on for each possible combination of the quasi-identifiers. For example, a row in the output that says "1   153" indicates that there are 153 quasi-identifiers that have only one corresponding feature value.
+`l_diversity.py` counts, for each sensitive feature, how many values the feature takes on for each possible combination of the quasi-identifiers. For example, a row in the output that says "1   153" indicates that there are 153 quasi-identifiers that have only one corresponding feature value. The overall `l-diversity` with respect to a given sensitive feature is therefore the minimum of these frequency counts, but for visualization's sake we output all frequency counts.
 
 Arguments:
 1. Path to dataset to analyze.
 2. Config file, that lists at minimum a set of quasi-identifier columns, identifier columns, and columns considered sensitive. 
 
+    python3 src/l_diversity.py datasets/mid_sample_set.csv config/quasi.config
     python3 src/l_diversity.py output/k_blur_10_suppress_3.csv config/quasi.config
     python3 src/l_diversity.py output/k_blur_100_suppress_3.csv config/quasi.config
     python3 src/l_diversity.py output/k_blur_1000_suppress_3.csv config/quasi.config

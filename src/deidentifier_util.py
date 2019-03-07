@@ -49,9 +49,12 @@ def create_bins(min_per_bin, dict_of_counts):
     """
     Create bins based on the frequency of values.
     :param min_per_bin: The minimum frequency in each bin.
-    :param dict_of_counts: A dictionary of counts for each value.
-    :return: A list, where the first element is '', representing missing values,
-        and every other element is a string of int.
+    :param dict_of_counts: A dictionary, where the keys indicate possible
+        values this feature could take on and the values indicate the
+        frequency with which this feature takes on that value. The keys
+        should be numeric strings, with the possible exception of ''.
+    :return: A list, where the first element is '', representing missing 
+        values, and every other element is a string of int.
     """
     bins = []
     n_in_bin = 0
@@ -126,6 +129,11 @@ def generalize_column(column_name, value, count_column_uniques, min_bin_size):
     Generalizes an entry in a column. Returns * if value must be hidden.
     :param column_name: String, name of the column for which this value belongs.
     :param value: String of int, the value to generalize.
+    :param count_column_uniques: The frequency dictionary returned by
+        count_column_uniques. This is a dictionary, where the keys are the column
+        names and the values are a nested dictionary. For the nested dictionary,
+        the keys are the possible values this column can take on and the values
+        are the frequencies with which this column takes on a given value.
     :param min_bin_size: If value is repeated in the dataset less than 
         min_bin_size times, value will be generalized to *.
     :return: string, the generalized value.

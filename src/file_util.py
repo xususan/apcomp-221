@@ -12,6 +12,8 @@ def columns_from_config_file(file_name, columns=None):
     Read a configuration file that is a csv where the first entry in each line is a 
     header column name.
     :param file_name: the name of the configuration file
+    :optional param columns: list, the categories of columns to read from the
+        config file. Must 
     :return: a tuple of deleted columns, quasi-identifier columns, and 
              columns to keep, each as a list of header names as strings
     """
@@ -42,12 +44,13 @@ def read_csv(filename):
     csv_in = csv.reader(fin)
     headers = next(csv_in)
     
-    rows = []
-    for line in csv_in:
-        rows.append(line)
+    # rows = []
+    # for line in csv_in:
+    #     rows.append(line)
     
-    print(" ---> Read {} lines with {} columns.".format(len(rows), len(headers)))
-    sys.stdout.flush()
+    # print(" ---> Read {} lines with {} columns.".format(len(rows), len(headers)))
+    # sys.stdout.flush()
+    rows = csv_in
     
     return headers, rows
 
