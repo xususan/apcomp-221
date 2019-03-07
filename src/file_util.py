@@ -43,13 +43,6 @@ def read_csv(filename):
     fin = open(filename, 'r')
     csv_in = csv.reader(fin)
     headers = next(csv_in)
-    
-    # rows = []
-    # for line in csv_in:
-    #     rows.append(line)
-    
-    # print(" ---> Read {} lines with {} columns.".format(len(rows), len(headers)))
-    # sys.stdout.flush()
     rows = csv_in
     
     return headers, rows

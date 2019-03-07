@@ -29,7 +29,7 @@ count_column_uniques helps us understand the distribution of our quasi-identifie
 
 Example usage: 
 
-    python3 count_columns_uniques.py mid_sample_set.csv quasi.config
+    python3 src/count_column_uniques.py datasets/mid_sample_set.csv config/quasi.config
 
 ## 2. quasi-identifier CSV
 
@@ -72,7 +72,7 @@ Arguments:
 
 ## 5. k-anonymous generalization, blurring, and suppression
 
-For this problem, we ran generalization and blurring using `k_blur.py`, and fed the resulting CSV through `k_suppres.py` to make the resulting CSV k-anonymous.
+For this problem, we ran generalization and blurring using `k_blur.py`, and fed the resulting CSV through `k_suppress.py` to make the resulting CSV k-anonymous.
 
 Step 1:
 Run `k_blur.py`, with arguments as follows:
