@@ -116,13 +116,13 @@ def test_k_blur(rows, headers):
     assert len(rows) == 16
     output_csv = k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k)
     pprint(output_csv)
-    assert len(output_csv) == 19
+    assert len(output_csv) == 17
                           
 
     k = 3
     output_csv = k_blur(headers, rows, blur_columns, generalize_columns, out_filename, k)
     pprint(output_csv)
-    assert len(output_csv) == 20
+    assert len(output_csv) == 17
     
 def test_l_diversity(rows, headers):
     delete_columns = ['column1']
@@ -130,8 +130,8 @@ def test_l_diversity(rows, headers):
 
     counter = l_diversity(headers, rows, delete_columns, qi_columns)
     pprint(counter)
-    assert counter[1] == 11
-    assert counter[2] == 4
+    assert counter[1] == 3
+    assert counter[2] == 2
     
 def test_blur_column(rows, headers):
     uniques = count_column_uniques(rows, headers)
