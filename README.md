@@ -31,6 +31,11 @@ Example usage:
 
     python3 src/count_column_uniques.py datasets/mid_sample_set.csv config/quasi.config
 
+## 1. Distribution of quasi-identifiers in the US
+
+To run our script, make sure you have R (3.5.2 or above verified) installed. Open up R or Rstudio, and run `source "problem_1.R`. It will take a little bit of time, but it will then print desired values to Terminal.
+
+
 ## 2. quasi-identifier CSV
 
 `quasi_reduce.py` is used to output a CSV that only has the quasi-identifiers for a given dataset. 
