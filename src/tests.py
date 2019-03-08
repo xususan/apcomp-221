@@ -49,7 +49,7 @@ def test_count_columns(rows, headers):
 def test_k_suppress(rows, headers):
     delete_columns = ['column1']
     qi_columns = ['column3']
-    out_filename = 'test.csv'
+    out_filename = 'output/test.csv'
     
     k = 2
     output_csv = k_suppress(headers, rows, delete_columns, qi_columns, out_filename, k)
@@ -93,7 +93,7 @@ def test_k_suppress(rows, headers):
 def test_k_synthetic(rows, headers):
     delete_columns = ['column1']
     qi_columns = ['column3']
-    out_filename = 'test.csv'
+    out_filename = 'output/test.csv'
     
     k = 2
     assert len(rows) == 16
@@ -110,7 +110,7 @@ def test_k_synthetic(rows, headers):
 def test_k_blur(rows, headers):
     blur_columns = ['column1']
     generalize_columns = ['column3']
-    out_filename = 'test.csv'
+    out_filename = 'output/test.csv'
     
     k = 2
     assert len(rows) == 16
