@@ -10,7 +10,7 @@ Removes
 import sys
 import pdb
 from collections import defaultdict, Counter
-from file_util import columns_from_config_file, read_csv, write_csv_to_file
+from file_util import read_csv, write_csv_to_file
     
     
 if __name__ == '__main__':
