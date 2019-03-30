@@ -19,7 +19,6 @@ To run an individual test:
 
 ## 1. Removing duplicates
 
-
 count_columns helps us understand the distribution of corrupt lines by counting how many columns are found in the csv.
 
 Example usage: 
