@@ -28,7 +28,7 @@ if __name__ == '__main__':
     counter = Counter()
     for line in rows:
         identifiers = ','.join(line[:2])
-        counter.update(identifiers)
+        counter.update({identifiers, 1})
         if counter[identifiers] == 1:
         	output_csv.append(line)
 
