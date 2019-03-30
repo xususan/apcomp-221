@@ -5,7 +5,7 @@ Created on 2019-02-18
 @author samuelclay
 """
 
-import sys, csv, json, random
+import csv, json, re
 from collections import defaultdict
 from collections import OrderedDict
 
@@ -20,6 +20,8 @@ def count_columns(rows):
     # print(" ---> Counting ", len(rows), " rows")
     for row in rows:
         counts[len(row)] += 1
+        if len(row) < 48:
+            print(" --->", len(row), "\t", row)
         
     return OrderedDict(reversed(sorted(counts.items())))
     
@@ -49,3 +51,45 @@ def write_csv_to_file(output_csv, out_filename):
         writer = csv.writer(outfile)
         for row in output_csv:
             writer.writerow(row)
+
+
+def count_column_uniques(rows, headers):
+    """
+    Get the number of unique values in each column of a dataset.
+    :param headers: A dictionary of all headers in the file.
+    :param rows: A list of lists, representing all rows in the dataset.
+    :return: A dictionary of columns with a dictionary of counts of unique column values
+    """
+    unique_values = {}
+    for col in headers:
+        unique_values[col] = {}
+
+    for line in rows:
+        for index, item in enumerate(line):
+            if index >= len(headers): continue
+            col_name = headers[index]
+            if item in unique_values[col_name]:
+                unique_values[col_name][item] += 1
+            else:
+                unique_values[col_name][item] = 1
+    return unique_values
+
+
+def regex_from_config_file(file_name):
+    """
+    Read a configuration file that has regex for each column header.
+    :param file_name: the name of the configuration file
+    :return: a dict of column headers and compiled regex
+    """
+    fin = open(file_name, 'r')
+    
+    config = json.loads(fin.read())
+    data = {}
+    for column, data_regex in config.items():
+        data[column] = re.compile(data_regex)
+        
+    fin.close()
+    
+    return data
+    
+    

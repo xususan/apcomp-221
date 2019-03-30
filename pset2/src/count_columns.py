@@ -7,6 +7,7 @@ Get the number of columns per row in a CSV
 """
 import sys
 from file_util import read_csv, count_columns
+from file_util import count_column_uniques
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -21,3 +22,8 @@ if __name__ == '__main__':
     
     total = sum(c for c in column_count.values())
     print (" ---> Total:", total)
+
+    headers, rows = read_csv(sys.argv[1])
+    unique_values = count_column_uniques(rows, headers)
+    for col, values in unique_values.items():
+        print(len(values), "\t", col)
