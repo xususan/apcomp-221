@@ -19,3 +19,5 @@ if __name__ == '__main__':
     for col, count in column_count.items():
         print(" --->", col, "\tcolumns,\t", count, "\trows")
     
+    total = sum(c for c in column_count.values())
+    print (" ---> Total:", total)

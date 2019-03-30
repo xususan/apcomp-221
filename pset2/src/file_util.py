@@ -7,6 +7,7 @@ Created on 2019-02-18
 
 import sys, csv, json, random
 from collections import defaultdict
+from collections import OrderedDict
 
 def count_columns(rows):
     """
@@ -20,7 +21,7 @@ def count_columns(rows):
     for row in rows:
         counts[len(row)] += 1
         
-    return counts
+    return OrderedDict(reversed(sorted(counts.items())))
     
 def read_csv(filename):
     """
