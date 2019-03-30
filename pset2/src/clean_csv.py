@@ -21,10 +21,12 @@ if __name__ == '__main__':
     headers, rows = read_csv(filename=sys.argv[1])
     out_filename = sys.argv[2]
 
+    # Write headers to file
     output_csv = [[]]
     for header in headers:
         output_csv[0].append(header)
 
+    # Keep count of how many times a given 
     counter = Counter()
     for line in rows:
         identifiers = ','.join(line[:2])
