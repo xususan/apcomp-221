@@ -2,3 +2,4 @@ __pycache__
 pset1/test.csv
 .DS_Store
 pset1/output/*.csv
+pset2/datasets/*.csv
