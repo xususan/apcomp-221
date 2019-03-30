@@ -1,4 +1,4 @@
 __pycache__
-test.csv
+pset1/test.csv
 .DS_Store
-output/*.csv
+pset1/output/*.csv
