@@ -6,30 +6,21 @@ Created on 2019-02-18
 """
 
 import sys, csv, json, random
+from collections import defaultdict
 
-def columns_from_config_file(file_name, columns=None):
+def count_columns(rows):
     """
-    Read a configuration file that is a csv where the first entry in each line is a 
-    header column name.
-    :param file_name: the name of the configuration file
-    :optional param columns: list, the categories of columns to read from the
-        config file. Must 
-    :return: a tuple of deleted columns, quasi-identifier columns, and 
-             columns to keep, each as a list of header names as strings
+    Iterates through rows and keeps counts of number of columns.
+    :param rows: rows of column arrays
+    :return: a dict of column counts to row counts
     """
-    fin = open(file_name, 'r')
+    counts = defaultdict(int)
     
-    if not columns:
-        columns = ['delete_columns', 'quasi_identifiers']
-    
-    config = json.loads(fin.read())
-    data = {}
-    for key, values in config.items():
-        data[key] = sorted(v.strip() for v in values)
+    # print(" ---> Counting ", len(rows), " rows")
+    for row in rows:
+        counts[len(row)] += 1
         
-    fin.close()
-    
-    return tuple(data[c] for c in columns)
+    return counts
     
 def read_csv(filename):
     """

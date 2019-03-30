@@ -13,24 +13,16 @@ First install pytest:
 
 To run an individual test:
 
-    pytest -k k_suppress
-
-## Config File
-An example config file (which contains the quasi-identifiers and identifiers specified on Canvas) can be found in quasi.config. The config file is a JSON, with the following entries:
-- `delete_columns`: a list of column names that are identifiers and should be removed from the dataset altogether.
-- `quasi_identifiers`: a list of column names that are quasi-identifiers, and will need to be made k-anonymous.
-- `generalize_columns`: used in `k_blur.py`, a list of columns to generalize (i.e, replace city with state and so on)
-- `blur_columns`: used in `k_blur.py`, a list of (continuous) columns to group into larger bin sizes.
-- `sensitive_columns`: used in `l_diversity.py`, a list of columns that may be considered sensitive to members of the dataset.
+    pytest -k clean_csv
 
 ## Data Analysis
 
-count_column_uniques helps us understand the distribution of our quasi-identifiers, by printing out what the unique values are for each quasi-identifier column, and the number of times each value appears in the dataset.
+count_columns helps us understand the distribution of corrupt lines by counting how many columns are found in the csv.
 
 Example usage: 
 
 ```
-python3 src/count_column_uniques.py datasets/mid_sample_set.csv config/quasi.config
+python3 src/count_columns.py datasets/dirty_sample_small.csv
 ```
 
 ## 1. Distribution of quasi-identifiers in the US
