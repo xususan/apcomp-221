@@ -5,6 +5,7 @@
   "viewed": "(^$|True|False)",
   "explored": "(True|False)",
   "certified": "(True|False)",
-  "completed": "(True|False)"
+  "ip": "(^$|\\d+\\.\\d+\\.\\d+\\.\\d+)",
+  "completed": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\.\\d+)"
   
 }

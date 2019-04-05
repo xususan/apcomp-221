@@ -7,9 +7,8 @@ Created on 2019-03-30
 Removes duplicates from CSV and writes to file.
 
 """
-import pdb
 import sys
-from collections import defaultdict, Counter
+from collections import Counter
 from file_util import read_csv, write_csv_to_file
    
 def deduplicate(rows, headers): 
@@ -18,13 +17,19 @@ def deduplicate(rows, headers):
 
     Returns a list of rows with entries.
     """
+    
+    # Move 'completed' header to the end because that's where the data is
+    MISPLACED_COLUMN = 'completed'
+    completed_index = headers.index(MISPLACED_COLUMN)
+    headers.pop(completed_index)
+    headers.append(MISPLACED_COLUMN)
+    
     # Write headers to file
     output_csv = [[]]
     for header in headers:
         output_csv[0].append(header)
 
     n_cols = len(headers)
-
 
     deduplicated_values = {}
     # Keep count of how many times a given set of identifiers have shown up
