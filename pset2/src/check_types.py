@@ -10,14 +10,8 @@ Reads a CSV file and checks each column against a regex to ensure it meets the s
 import sys
 from file_util import read_csv, regex_from_config_file
     
-    
-if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print('Usage: python check_types.py infile.csv config.json')
-        sys.exit(1)
-    
-    headers, rows = read_csv(filename=sys.argv[1])
-    config_file = sys.argv[2]
+def check_types(filename, config_file):
+    headers, rows = read_csv(filename=filename)
     regex_checks = regex_from_config_file(config_file)
     
     mismatched_count = 0
@@ -34,3 +28,14 @@ if __name__ == '__main__':
                 mismatched_count += 1
     
     print(" ---> Mismatched count: {}".format(mismatched_count))
+    assert mismatched_count == 0
+    
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print('Usage: python check_types.py infile.csv config.json')
+        sys.exit(1)
+    
+    filename = sys.argv[1]
+    config_file = sys.argv[2]
+    
+    check_types(filename, config_file)

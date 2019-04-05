@@ -43,6 +43,9 @@
   "nforum_events": "(^$|\\d+)",
   "mode": "(^$|audit|honor|verified)",
   "is_active": "(^$|0|1)",
-  "completed": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\.\\d+)"
+  "cert_created_date": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?)",
+  "cert_modified_date": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?)",
+  "cert_status": "(^$|notpassing|downloadable|unverified|audit_notpassing|audit_passing)",
+  "maybe_completed": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\.\\d+)"
   
 }
