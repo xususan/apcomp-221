@@ -1,3 +1,10 @@
 {
-  "course_id": "HarvardX/\\w+/\\w+"
+  "course_id": "HarvardX/[\\w\\.]+/[\\w]+",
+  "user_id": "\\d+",
+  "registered": "(True|False)",
+  "viewed": "(^$|True|False)",
+  "explored": "(True|False)",
+  "certified": "(True|False)",
+  "completed": "(True|False)"
+  
 }

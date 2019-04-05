@@ -36,7 +36,7 @@ python3 src/clean_csv.py datasets/dirty_sample_small.csv output/clean.csv
 ## Problem 2
 
 ```
-
+python3 src/check_types.py output/clean.csv config/type_checks.json
 ```
 
 ## Problem 3
