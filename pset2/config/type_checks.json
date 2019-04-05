@@ -6,6 +6,22 @@
   "explored": "(True|False)",
   "certified": "(True|False)",
   "ip": "(^$|\\d+\\.\\d+\\.\\d+\\.\\d+)",
+  "cc_by_ip": "(^$|\\w{2})",
+  "countryLabel": "(^$|[\\w\\s]+)",
+  "continent": "(^$|[\\w\\s]+)",
+  "city": "(^$|[\\w\\s]+)",
+  "region": "(^$|\\w{1,3})",
+  "subdivision": "(^$|[\\w\\s]+)",
+  "postalCode": "(^$|[\\d\\w]+)",
+  "un_major_region": "(^$|[\\w\\s]+)",
+  "un_economic_group": "(^$|[\\w\\s]+)",
+  "un_developing_nation": "(^$|[\\w\\s]+)",
+  "un_special_region": "(^$|[\\w\\s]+)",
+  "latitude": "(^$|\\-?\\d{1,2}\\.\\d{1,4})",
+  "longitude": "(^$|\\-?\\d{1,3}\\.\\d{1,4})",
+  "LoE": "(^$|\\w)",
+  "YoB": "(^$|\\d{4})",
+  "gender": "(^$|m|f|o)",
   "completed": "(^$|\\d{4}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\.\\d+)"
   
 }
