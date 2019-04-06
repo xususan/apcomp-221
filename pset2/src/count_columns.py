@@ -80,3 +80,26 @@ if __name__ == '__main__':
                     else:
                         uncompleted_count += 1
     print(" ---> Completed: {}, Uncompleted: {}".format(completed_count, uncompleted_count))
+
+    headers, rows = read_csv(sys.argv[1])
+    above_passing = 0
+    below_passing = 0
+    uncompleted = 0
+    for row in rows:
+        is_completed = False
+        for c, column in enumerate(row):
+            if headers[c] == "passing_grade":
+                passing_grade = column
+            if headers[c] == "completed" and column == "True":
+                is_completed = True
+        if is_completed:
+            for c, column in enumerate(row):
+                if headers[c] == "grade":
+                    if not column:
+                        uncompleted += 1
+                    elif column >= passing_grade:
+                        above_passing += 1
+                    else:
+                        below_passing += 1
+                        print(" ---> Below passing: {}/{}: {}".format(column, passing_grade, row))
+    print(" ---> Above passing grade: {}, below: {}, uncompleted: {}".format(above_passing, below_passing, uncompleted))
