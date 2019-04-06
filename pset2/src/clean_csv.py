@@ -25,8 +25,8 @@ def deduplicate(rows, headers):
     completed_index = headers.index(DELETE_COLUMN_HEADER)
     headers.pop(completed_index)
     
-    # Add the completed date header to the end
-    headers.append("maybe_completed_date")
+    # Add the unknown date header to the end
+    headers.append("unknown_date")
     
     # Write headers to file
     output_csv = [[]]
