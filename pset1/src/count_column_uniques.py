@@ -21,6 +21,9 @@ if __name__ == '__main__':
 
     unique_values = count_column_uniques(rows, headers)
 
-    for col in qi_columns:
+    for col in headers:
+        if len(unique_values[col]) > 10: 
+            print(col, len(unique_values[col]))
+            continue
         print(col, unique_values[col])
     
