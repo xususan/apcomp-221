@@ -3,7 +3,7 @@
 """
 Created on 2019-02-18
 @author Sam
-Get the number of columns per row in a CSV
+Get the number of columns per row in a CSV and print other useful statistics.
 """
 import sys
 from file_util import read_csv, count_columns
