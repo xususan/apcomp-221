@@ -11,12 +11,19 @@ from file_util import count_column_uniques
 from pprint import pprint
 from collections import OrderedDict
 
-columns_of_interest=["LoE","YoB","gender", "countryLabel", "continent"]
+def print_values_by_col(headers, rows, columns_of_interest):
+    """Given a CSV, print the distribution of data for columns of interest.
 
-def print_values_by_col(headers, rows):
+    :param headers: row indicating header array
+    :param rows: rows of column arrays
+    :return: None
+    """
     unique_values = count_column_uniques(rows, headers)
     for col in columns_of_interest:
-        pprint(OrderedDict(reversed(sorted(unique_values[col].items(), key= lambda x: x[0]))))
+        print(col)
+        od = (OrderedDict((sorted(unique_values[col].items(), key= lambda x: x[0]))))
+        for key,value in od.items():
+            print("%s \t %d" % (key, value))
 
 
 
@@ -43,4 +50,15 @@ if __name__ == '__main__':
             print("\t\t{}".format(values))
 
     headers, rows = read_csv(sys.argv[1])
-    print_values_by_col(headers, rows)
+    columns_of_interest = [
+        "LoE",
+        "YoB",
+        "gender", 
+        "countryLabel", 
+        "continent", 
+        "un_major_region",
+        "un_economic_group",
+        "un_developing_nation",
+        "un_special_region"
+    ]
+    print_values_by_col(headers, rows, columns_of_interest)
