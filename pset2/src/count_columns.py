@@ -62,3 +62,21 @@ if __name__ == '__main__':
         "un_special_region"
     ]
     print_values_by_col(headers, rows, columns_of_interest)
+    
+    headers, rows = read_csv(sys.argv[1])
+    completed_count = 0
+    uncompleted_count = 0
+    for row in rows:
+        has_completed_date = False
+        for c, column in enumerate(row):
+            if headers[c] == "maybe_completed_date" and column:
+                has_completed_date = True
+                break
+        if has_completed_date:
+            for c, column in enumerate(row):
+                if headers[c] == "completed":
+                    if column == "True":
+                        completed_count += 1
+                    else:
+                        uncompleted_count += 1
+    print(" ---> Completed: {}, Uncompleted: {}".format(completed_count, uncompleted_count))

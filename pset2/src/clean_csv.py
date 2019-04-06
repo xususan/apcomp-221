@@ -20,11 +20,13 @@ def deduplicate(rows, headers):
     :return: a list to write to CSV with deduplicated entries.
     """
     
-    # Move 'completed' header to the end because that's where the data is
-    MISPLACED_COLUMN = 'completed'
-    completed_index = headers.index(MISPLACED_COLUMN)
+    # Remove the 'registered' header as the data is shifted
+    DELETE_COLUMN_HEADER = 'registered'
+    completed_index = headers.index(DELETE_COLUMN_HEADER)
     headers.pop(completed_index)
-    headers.append("maybe_" + MISPLACED_COLUMN)
+    
+    # Add the unknown date header to the end
+    headers.append("unknown_date")
     
     # Write headers to file
     output_csv = [[]]
