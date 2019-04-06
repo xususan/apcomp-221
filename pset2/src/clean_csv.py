@@ -84,7 +84,6 @@ def remove_rows_with_missing(output_csv):
 
     return non_corrupt_csv, corrupt_csv
 
-
     
 if __name__ == '__main__':
     if len(sys.argv) < 3:

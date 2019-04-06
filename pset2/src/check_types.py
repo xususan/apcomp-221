@@ -9,6 +9,7 @@ Reads a CSV file and checks each column against a regex to ensure it meets the s
 """
 import sys
 from file_util import read_csv, regex_from_config_file
+
     
 def check_types(filename, config_file):
     headers, rows = read_csv(filename=filename)
@@ -39,3 +40,4 @@ if __name__ == '__main__':
     config_file = sys.argv[2]
     
     check_types(filename, config_file)
+
