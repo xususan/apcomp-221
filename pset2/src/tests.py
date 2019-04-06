@@ -8,11 +8,11 @@ Unit tests for k-suppression, k-synthetic, and k-blurring of de-identified data 
 import pytest
 from clean_csv import deduplicate
 from pprint import pprint
-from file_util import read_csv, regex_from_config_file
+from file_util import read_csv, regex_from_config_file, count_column_uniques
 
 @pytest.fixture
 def headers():
-    return ['column1', 'column2', 'completed']
+    return ['column1', 'column2', 'registered']
 
 @pytest.fixture
 def rows():
@@ -35,12 +35,40 @@ def rows():
         ["7", "7", "7"],
     ]
 
+@pytest.fixture
+def rows_non_corrupt():
+    return [
+        ["1", "2", "3"],
+        ["1", "1", "1"],
+        ["1", "1", "1"],
+        ["1", "1", "1"],
+        ["2", "2", "2"],
+        ["2", "2", "2"],
+        ["2", "2", "2"],
+        ["3", "3", "3"],
+        ["3", "3", "3"],
+        ["3", "3", "3"],
+        ["3", "2", "1"],
+        ["3", "2", "1"],
+        ["3", "2", "1"],
+        ["4", "5", "6"],
+        ["4", "5", "6"],
+        ["7", "7", "7"],
+    ]
+
+
+def test_count_columns(rows_non_corrupt, headers):
+    uniques = count_column_uniques(rows_non_corrupt, headers)
+    pprint(uniques)
+    assert uniques == {'column1': {'1': 4, '2': 3, '3': 6, '4': 2, '7': 1},
+                       'column2': {'1': 3, '2': 7, '3': 3, '5': 2, '7': 1},
+                       'registered': {'1': 6, '2': 3, '3': 4, '6': 2, '7': 1}}
 
 def test_deduplicate(rows, headers):
     deduplicated = deduplicate(rows, headers)
     pprint(deduplicated)
     assert deduplicated == [
-        ['column1', 'column2', 'maybe_completed'],
+        ['column1', 'column2', 'unknown_date'],
         ["1", "2", "3"],
         ["1", "1", "1"],
         ["2", "2", "2"],
