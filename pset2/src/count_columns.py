@@ -32,11 +32,15 @@ if __name__ == '__main__':
         print(" --->", col, "\tcolumns,\t", count, "\trows")
     
     total = sum(c for c in column_count.values())
-    print (" ---> Total:", total)
+    print(" ---> Total rows:", total)
 
     headers, rows = read_csv(sys.argv[1])
     unique_values = count_column_uniques(rows, headers)
+    print("\n ---> Unique values per column")
     for col, values in unique_values.items():
-        print(len(values), "\t", col)
+        print("\t", len(values), "\t", col)
+        if len(values) < 10:
+            print("\t\t{}".format(values))
 
+    headers, rows = read_csv(sys.argv[1])
     print_values_by_col(headers, rows)
