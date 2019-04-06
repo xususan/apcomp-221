@@ -61,9 +61,10 @@ def deduplicate(rows, headers):
 
     return output_csv
 
-def remove_rows_with_missing(output_csv):
+def remove_rows_with_missing_or_corrupt_data(output_csv):
     """
-    Split CSV into a corrupt and non-corrupt CSV based on number of columns.
+    Split CSV into a corrupt and non-corrupt CSV based on number of columns or rows that have
+    a grade set to 0.0 but are marked as completed.
 
     :param output_csv: Iterator over header and rows of a CSV
     :return: tuple, where the first entry is the non-corrupt CSVs and the second entry is the corrupt CSV
@@ -79,11 +80,25 @@ def remove_rows_with_missing(output_csv):
     non_corrupt_csv.append(headers)
 
     for line in rows:
-        if len(line) != n_cols:
+        is_missing_grade = False
+        is_completed = False
+        passing_grade = 0
+        for c, column in enumerate(line):
+            if headers[c] == "completed" and column == "True":
+                is_completed = True
+            if headers[c] == "passing_grade":
+                passing_grade = column
+        if is_completed:
+            for c, column in enumerate(line):
+                if headers[c] == "grade" and column < passing_grade:
+                    is_missing_grade = True
+
+        if len(line) != n_cols or is_missing_grade:
             corrupt_csv.append(line)
         else:
             non_corrupt_csv.append(line)
-
+    
+    print(" ---> Removed {} corrupted lines, kept {} lines".format(len(corrupt_csv), len(non_corrupt_csv)))
     return non_corrupt_csv, corrupt_csv
 
     
@@ -97,6 +112,6 @@ if __name__ == '__main__':
     out_corrupt_filename = out_non_corrupt_filename[:-4] + '_corrupt.csv'
 
     output_csv = deduplicate(rows, headers)
-    non_corrupt_csv, corrupt_csv = remove_rows_with_missing(output_csv)
+    non_corrupt_csv, corrupt_csv = remove_rows_with_missing_or_corrupt_data(output_csv)
     write_csv_to_file(non_corrupt_csv, out_non_corrupt_filename)
     write_csv_to_file(corrupt_csv, out_corrupt_filename)
